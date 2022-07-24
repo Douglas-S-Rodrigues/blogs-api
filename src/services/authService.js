@@ -6,7 +6,7 @@ const { ValidationTokenError, loginValidateError, getByEmailValidationError } = 
 const secret = process.env.JWT_SECRET || 'secret';
 
 const authService = {
-  validateToken: async (request, _response) => {
+  async validateToken(request, _response) {
     const token = request.headers.authorization;
     if (!token) {
       return ValidationTokenError('Token not found');
@@ -19,29 +19,29 @@ const authService = {
     }
   },
 
-  validateLogin: async (obj) => {
+  async validateLogin(request, _response) {
     const schema = Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().min(6).required(),
     });
-    const result = schema.validate(obj);
+    const result = schema.validate(request);
     if (!result) {
       return loginValidateError('Some required fields are missing');
     }
     return result.value;
   },
 
-  makeToken: async (user) => {
+  async makeToken(user) {
     const token = jwt.sign({ data: user }, secret);
     return token;
   },
 
-  readToken: async (token) => {
+  async readToken(token) {
     const { data } = jwt.decode(token, secret);
     return data;
   },
 
-  getByEmail: async ({ email, password }) => {
+  async getByEmail({ email, password }) {
     if (!email || !password) {
       return getByEmailValidationError('Some required fields are missing');
     }
@@ -53,7 +53,7 @@ const authService = {
       return getByEmailValidationError('Invalid fields');
     }
   },
-  
+
 };
 
 module.exports = authService;

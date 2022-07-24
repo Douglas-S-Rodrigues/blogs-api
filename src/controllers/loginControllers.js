@@ -1,7 +1,7 @@
 const loginService = require('../services/authService');
 
 const loginControllers = {
-  postLogin: async (req, res) => {
+  async postLogin(req, res) {
     const { email, password } = req.body;
     const validate = await loginService.validateLogin({ email, password });
     const emailData = await loginService.getByEmail(validate);
