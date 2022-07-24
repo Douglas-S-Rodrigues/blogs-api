@@ -1,6 +1,9 @@
 const express = require('express');
+require('express-async-errors');
 
-const loginControllers = require('./controllers/loginControllers');
+const login = require('./routes/authRoute');
+
+const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 
 // ...
 
@@ -8,7 +11,9 @@ const app = express();
 
 app.use(express.json());
 
-app.post('/login', loginControllers.loginController);
+app.use('/login', login);
+
+app.use(errorHandlerMiddleware);
 
 // ...
 

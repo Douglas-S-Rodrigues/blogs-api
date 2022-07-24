@@ -1,35 +1,59 @@
+const Joi = require('joi');
 const jwt = require('jsonwebtoken');
-const { User } = require('../database/models');
+const models = require('../database/models');
+const { ValidationTokenError, loginValidateError, getByEmailValidationError } = require('./utils');
 
 const secret = process.env.JWT_SECRET || 'secret';
 
-const validateLoginData = async (request, _response) => {
-  const { email, password } = request;
-  
-  if (!email || !password) {
-    return { code: 400, message: 'Some required fields are missing' };
-  } 
-
-  const userValidate = await User.findOne({ where: { email, password } });
-  
-  if (!userValidate) {
-    return { code: 400, message: 'Invalid fields' };
-  }
-  return {};
-};  
-
 const authService = {
-  async newToken(request) {
-    const validate = await validateLoginData(request);
+  validateToken: async (request, _response) => {
+    const token = request.headers.authorization;
+    if (!token) {
+      return ValidationTokenError('Token not found');
+    }
+    try {
+      const { data } = jwt.verify(token, secret);
+      return data;
+    } catch (err) {
+      return ValidationTokenError('Expired or invalid token');
+    }
+  },
 
-    if (validate.message) {
-      return validate;
-    } 
+  validateLogin: async (obj) => {
+    const schema = Joi.object({
+      email: Joi.string().email().required(),
+      password: Joi.string().min(6).required(),
+    });
+    const result = schema.validate(obj);
+    if (!result) {
+      return loginValidateError('Some required fields are missing');
+    }
+    return result.value;
+  },
 
-    const token = jwt.sign({ data: request.email }, secret);
-
+  makeToken: async (user) => {
+    const token = jwt.sign({ data: user }, secret);
     return token;
   },
+
+  readToken: async (token) => {
+    const { data } = jwt.decode(token, secret);
+    return data;
+  },
+
+  getByEmail: async ({ email, password }) => {
+    if (!email || !password) {
+      return getByEmailValidationError('Some required fields are missing');
+    }
+    const user = await models.User.findOne({
+      where: { email },
+      raw: true,
+    });
+    if (!user || user.password !== password) {
+      return getByEmailValidationError('Invalid fields');
+    }
+  },
+  
 };
 
 module.exports = authService;
