@@ -1,7 +1,8 @@
 const errors = {
   ValidationTokenError: 401,
-  loginValidationError: 400,
   getByEmailValidationError: 400,
+  registerValidationError: 409,
+  userDataValidation: 400,
 };
 /**
  * 

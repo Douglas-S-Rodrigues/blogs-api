@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const models = require('../database/models');
-const { ValidationTokenError, loginValidateError, getByEmailValidationError } = require('./utils');
+const { ValidationTokenError, getByEmailValidationError } = require('./utils');
 
 const secret = process.env.JWT_SECRET || 'secret';
 
@@ -25,9 +25,6 @@ const authService = {
       password: Joi.string().min(6).required(),
     });
     const result = schema.validate(request);
-    if (!result) {
-      return loginValidateError('Some required fields are missing');
-    }
     return result.value;
   },
 
