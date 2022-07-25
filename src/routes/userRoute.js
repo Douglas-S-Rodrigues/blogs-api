@@ -8,4 +8,7 @@ user.route('/')
   .post(userControllers.createUser)
   .get(authService.validateToken, userControllers.getAllUsers);
 
+user.route('/:id')
+  .get(authService.validateToken, userControllers.getUserById);
+
 module.exports = user;

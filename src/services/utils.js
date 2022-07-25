@@ -16,6 +16,12 @@ const registerValidationError = (message) => {
   throw err;
 };
 
+const userIdError = (message) => {
+  const err = new Error(message);
+  err.name = 'userIdError';
+  throw err;
+};
+
 const userDataValidation = (message) => {
   const err = new Error(message);
   err.name = 'userDataValidation';
@@ -27,4 +33,5 @@ module.exports = {
   getByEmailValidationError,
   registerValidationError,
   userDataValidation,
+  userIdError,
 };

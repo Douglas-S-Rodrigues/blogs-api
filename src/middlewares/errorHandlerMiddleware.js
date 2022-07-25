@@ -3,6 +3,7 @@ const errors = {
   getByEmailValidationError: 400,
   registerValidationError: 409,
   userDataValidation: 400,
+  userIdError: 404,
 };
 /**
  * 

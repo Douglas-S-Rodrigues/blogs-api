@@ -13,6 +13,11 @@ const userControllers = {
     const users = await userService.getAllUsers();
     return res.status(200).json(users); 
   },
+
+  async getUserById(req, res) {
+    const user = await userService.getUserById(req.params.id);
+    return res.status(200).json(user);
+  },
   
 };
 
