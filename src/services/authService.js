@@ -6,14 +6,14 @@ const { ValidationTokenError, getByEmailValidationError } = require('./utils');
 const secret = process.env.JWT_SECRET || 'secret';
 
 const authService = {
-  async validateToken(request, _response) {
+  async validateToken(request, _response, next) {
     const token = request.headers.authorization;
     if (!token) {
       return ValidationTokenError('Token not found');
     }
     try {
-      const { data } = jwt.verify(token, secret);
-      return data;
+       jwt.verify(token, secret);
+      return next();
     } catch (err) {
       return ValidationTokenError('Expired or invalid token');
     }
@@ -31,11 +31,6 @@ const authService = {
   async makeToken(user) {
     const token = jwt.sign({ data: user }, secret);
     return token;
-  },
-
-  async readToken(token) {
-    const { data } = jwt.decode(token, secret);
-    return data;
   },
 
   async getByEmail({ email, password }) {

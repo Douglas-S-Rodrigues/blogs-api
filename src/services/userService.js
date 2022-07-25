@@ -1,7 +1,8 @@
 const { User } = require('../database/models');
 const { userDataValidation, registerValidationError } = require('./utils');
 
-const userValidate = async (body) => {
+const userService = {
+  async userValidate(body) {
   const { displayName, email, password } = body;
   const regex = /\S+@\S+\.\S+/;
   const userVerify = await User.findOne({ 
@@ -23,17 +24,26 @@ const userValidate = async (body) => {
   if (userVerify) {
     return registerValidationError('User already registered');
   }
-};
+},
 
-const createUser = async (body) => {
+  async createUser(body) {
   const newUser = await User.create(
     body,
     { raw: true },
   );
   return newUser;
+},
+
+async getAllUsers() {
+  const users = await User.findAll({
+    raw: true,
+    attributes: {
+      exclude: ['password'],
+    },
+  });
+  return users;
+},
+
 };
 
-module.exports = {
-  createUser,
-  userValidate,
-};
+module.exports = userService;
