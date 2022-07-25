@@ -4,6 +4,7 @@ const errors = {
   registerValidationError: 409,
   userDataValidation: 400,
   userIdError: 404,
+  nameReqError: 400,
 };
 /**
  * 

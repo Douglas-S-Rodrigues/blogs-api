@@ -5,6 +5,8 @@ const login = require('./routes/authRoute');
 
 const user = require('./routes/userRoute');
 
+const category = require('./routes/categoryRoute');
+
 const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 
 // ...
@@ -16,6 +18,8 @@ app.use(express.json());
 app.use('/login', login);
 
 app.use('/user', user);
+
+app.use('/categories', category);
 
 app.use(errorHandlerMiddleware);
 

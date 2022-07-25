@@ -28,10 +28,17 @@ const userDataValidation = (message) => {
   throw err;
 };
 
+const nameReqError = (message) => {
+  const err = new Error(message);
+  err.name = 'nameReqError';
+  throw err;
+};
+
 module.exports = {
   ValidationTokenError,
   getByEmailValidationError,
   registerValidationError,
   userDataValidation,
   userIdError,
+  nameReqError,
 };
