@@ -7,6 +7,8 @@ const user = require('./routes/userRoute');
 
 const category = require('./routes/categoryRoute');
 
+const post = require('./routes/postRoute');
+
 const errorHandlerMiddleware = require('./middlewares/errorHandlerMiddleware');
 
 // ...
@@ -20,6 +22,8 @@ app.use('/login', login);
 app.use('/user', user);
 
 app.use('/categories', category);
+
+app.use('/post', post);
 
 app.use(errorHandlerMiddleware);
 
