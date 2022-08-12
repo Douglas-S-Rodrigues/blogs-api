@@ -1,7 +1,7 @@
 
 # Projeto Blogs API
 
-Foi desenvolvido uma API e um banco de dados para a produção de conteúdo para um blog, utilizando   endpoints que estarão conectados ao  banco de dados seguindo os princípios do REST.
+Foi desenvolvido uma API e um banco de dados para a produção de conteúdo para um blog fazendo um CRUD, utilizando   endpoints que estarão conectados ao  banco de dados seguindo os princípios do REST.
 
 
 # Stacks utilizadas
