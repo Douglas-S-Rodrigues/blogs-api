@@ -58,11 +58,3 @@ Back-end: JavaScript, Node.js, Sequelize, Rest.
 
 
 
-
-
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório**. O ID do item que você quer |
-
-
-
