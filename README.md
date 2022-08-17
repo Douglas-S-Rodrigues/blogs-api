@@ -17,43 +17,43 @@ Back-end: JavaScript, Node.js, Sequelize, Rest.
 #### Para fazer login
 
 ```
-  POST /api/login
+  POST /login
 ```
 
 
 #### Criar um usuário
 
 ```
-  POST /api/user
+  POST /user
 ```
 
 #### Buscar todos os usuários
 
 ```
-  GET /api/user
+  GET /user
 ```
 
 #### Buscar um usuário
 
 ```
-  GET /api/user/:id
+  GET /user/:id
 ```
 
 #### Buscar todos as categorias
 
 ```
-  GET /api/categories
+  GET /categories
 ```
 
 #### Criar uma categoria
 
 ```
-  POST /api/categories
+  POST /categories
 ```
 #### Buscar todos os posts
 
 ```
-  GET /api/post
+  GET /post
 ```
 
 
